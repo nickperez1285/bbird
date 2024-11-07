@@ -1,0 +1,157 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Newspaper API",
+    "description": "API for accessing newspaper sections including sports and weather.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Newspaper API Support",
+      "url": "https://newspaperapi.example.com/support",
+      "email": "support@newspaperapi.example.com"
+    }
+  },
+  "tags": [
+    {
+      "name": "Sports",
+      "description": "Operations related to sports news."
+    },
+    {
+      "name": "Weather",
+      "description": "Operations related to weather updates."
+    }
+  ],
+  "paths": {
+    "/sports": {
+      "get": {
+        "operationId": "getSportsNews",
+        "tags": [
+          "Sports"
+        ],
+        "summary": "Retrieve sports news",
+        "description": "Fetches the latest sports news articles.",
+        "responses": {
+          "200": {
+            "description": "A list of sports news articles.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SportsNewsResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Sports news not found."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    },
+    "/weather": {
+      "get": {
+        "operationId": "getWeatherUpdates",
+        "tags": [
+          "Weather"
+        ],
+        "summary": "Retrieve weather updates",
+        "description": "Fetches the latest weather updates.",
+        "responses": {
+          "200": {
+            "description": "Current weather information.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WeatherResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Weather information not found."
+          },
+          "500": {
+            "description": "Internal server error."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SportsNewsResponse": {
+        "type": "object",
+        "properties": {
+          "articles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SportsArticle"
+            }
+          }
+        },
+        "required": [
+          "articles"
+        ],
+        "additionalProperties": false
+      },
+      "SportsArticle": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Local Team Wins Championship"
+          },
+          "author": {
+            "type": "string",
+            "example": "Jane Doe"
+          },
+          "publishedDate": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2023-10-01T14:30:00Z"
+          },
+          "content": {
+            "type": "string",
+            "example": "In a thrilling match, the local team secured their victory..."
+          }
+        },
+        "required": [
+          "title",
+          "author",
+          "publishedDate",
+          "content"
+        ],
+        "additionalProperties": false
+      },
+      "WeatherResponse": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "type": "string",
+            "example": "New York, NY"
+          },
+          "temperature": {
+            "type": "number",
+            "example": 72.5
+          },
+          "condition": {
+            "type": "string",
+            "example": "Sunny"
+          },
+          "humidity": {
+            "type": "number",
+            "example": 45
+          }
+        },
+        "required": [
+          "location",
+          "temperature",
+          "condition",
+          "humidity"
+        ],
+        "additionalProperties": false
+      }
+    }
+  }
+}
